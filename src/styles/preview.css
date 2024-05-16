@@ -1,0 +1,32 @@
+.previewContainer{
+    width: 55vw;
+    margin: 5%;
+    height: 77.78vw;
+    
+    display: flex;
+    flex-direction: column;
+
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(125,125,125,0.58); 
+    box-shadow: 5px 5px 15px 5px rgba(125,125,125,0.58);
+
+}
+header{
+    background-color: rgb(30, 59, 117);
+    height: 12%;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.contactInfo{
+    font-size: 15px;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+.contactInfo > h3{
+    font-weight: lighter;
+}

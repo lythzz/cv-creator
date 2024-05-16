@@ -1,0 +1,8 @@
+.personalContainer{
+    width: 40vw;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+h1{
+    margin: 0 3%;
+}
