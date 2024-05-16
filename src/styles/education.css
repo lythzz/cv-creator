@@ -1,0 +1,16 @@
+.container{
+    width: 40vw;
+    margin: 4% 2%;
+    background-color: white;
+    border-radius: 10px;
+}
+.dropdown{
+    border: none;
+    background-color: white;
+    font-size: 25px;
+    transition: transform .2s;
+}
+
+.hidden{
+    display: none;
+}

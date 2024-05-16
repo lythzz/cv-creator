@@ -1,8 +1,8 @@
 .previewContainer{
     width: 55vw;
-    margin: 5%;
+    margin: 2% 4%;
     height: 77.78vw;
-    
+    background-color: white;
     display: flex;
     flex-direction: column;
 
