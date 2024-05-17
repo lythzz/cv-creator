@@ -9,11 +9,11 @@ const exampledata = {
         [
             {
                 school: 'Concordia',
-                title: 'Pedroplasmose',
+                course: 'Pedroplasmose',
                 start: 'Feb 2010',
                 end: 'Dec 2022',
                 location: 'Brazil',
-                uuid: 1337
+                id: 1337
             }
         ]
 }

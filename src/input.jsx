@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import './styles/input.css'
-
-export default function Input({label, type, ph,  onChange, dataKey, value}){
- 
-    return (
+const Input = forwardRef(({label, type, ph,  onChange, dataKey, value}, ref) => (
         <div className="inputContainer">
             <label className="formLabel">{label}</label>
-            <input className="formInput" value={value} data-key={dataKey} placeholder={ph} type={type} onChange={onChange}></input>
+            <input className="formInput" ref={ref} value={value} data-key={dataKey} placeholder={ph} type={type} onChange={onChange}></input>
         </div>  
     )
-}
+)
+
+
+export default Input

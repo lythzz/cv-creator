@@ -1,6 +1,7 @@
 import './styles/education.css'
 import Input from './input'
 import { useRef } from 'react'
+import { v1 as uuid }  from 'uuid'
 
 export default function Education({educationInfo, setInfo}){
     const formRef = useRef(null)
@@ -35,16 +36,38 @@ export default function Education({educationInfo, setInfo}){
 
     }
 
-    function Form({ handleItem, preset, toggleForm}){
+    function Form({ preset, toggleForm}){
+        const schoolRef = useRef(null)
+        const courseRef = useRef(null)
+        const startRef = useRef(null)
+        const endRef = useRef(null)
+        const locRef = useRef(null)
+
+        function  handleItem(){
+            toggleForm()
+            const item = {
+                school: schoolRef.current.value,
+                course: courseRef.current.value,
+                start: startRef.current.value,
+                end: endRef.current.value,
+                location: locRef.current.value,
+                id: uuid()
+            }
+            const cpy = educationInfo
+            cpy.push(item)
+            
+            setInfo(cpy)
+            
+        }    
     
         return(
             <div ref={formRef} className='hidden'>
                 <div className="inputGroup">
-                    <Input type={'text'} dataKey={'school'} label={'School'} value={preset.school} ph={'School/university'}></Input>
-                    <Input type={'text'} dataKey={'title'} label={'Course/Degree'} value={preset.title} ph={'Enter course'}></Input>
-                    <Input type={'text'} dataKey={'start'} label={'Start date'} value={preset.start} ph={''}></Input>
-                    <Input type={'text'} dataKey={'end'} label={'Conclusion'} value={preset.end} ph={''}></Input>
-                    <Input type={'text'} dataKey={'location'} label={'Location'} value={preset.location} ph={''}></Input>
+                    <Input ref={schoolRef} type={'text'} dataKey={'school'} label={'School'} value={preset.school} ph={'School/university'}></Input>
+                    <Input ref={courseRef} type={'text'} dataKey={'title'} label={'Course/Degree'} value={preset.title} ph={'Enter course'}></Input>
+                    <Input ref={startRef} type={'text'} dataKey={'start'} label={'Start date'} value={preset.start} ph={''}></Input>
+                    <Input ref={endRef} type={'text'} dataKey={'end'} label={'Conclusion'} value={preset.end} ph={''}></Input>
+                    <Input ref={locRef} type={'text'} dataKey={'location'} label={'Location'} value={preset.location} ph={''}></Input>
                 </div>
                 <div className="formBtns">
                     <button className='formBtn' onClick={toggleForm} id='cancel'>Cancel</button>
@@ -60,7 +83,7 @@ export default function Education({educationInfo, setInfo}){
             <div >
                 {educationInfo.map((item) => (
                     <div style={{display: 'flex'}}>
-                        <div data-id={item.uuid}><strong>{item.title}</strong> <br></br> at {item.school}</div>
+                        <div data-id={item.id} key={item.id}><strong>{item.course}</strong> <br></br> at {item.school}</div>
                         <div></div>
                     </div>
 
