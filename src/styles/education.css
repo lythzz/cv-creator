@@ -1,5 +1,5 @@
 .container{
-    width: 40vw;
+    width: max(40vw, 400px);
     margin: 4% 2%;
     background-color: white;
     border-radius: 10px;
@@ -13,4 +13,47 @@
 
 .hidden{
     display: none;
+}
+
+.inputGroup{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.form{
+    width: 100%;
+}
+
+#cancel, #save{
+    padding: 10px 20px;
+    margin: 0 2.5% 0 0;
+    border-radius: 5px;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+    transition: transform .2s;
+}
+
+#cancel{
+    background-color: rgb(228, 64, 64);
+}
+
+#save{
+    background-color: rgb(111, 196, 103);
+}
+
+#cancel:hover{
+    background-color:  rgb(196, 0, 0);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+#save:hover{
+    background-color: rgb(13, 160, 0);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.formBtns{
+    width: 100%;
+    text-align: right;
 }

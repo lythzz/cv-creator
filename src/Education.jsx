@@ -1,6 +1,6 @@
 import './styles/education.css'
 import Input from './input'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { v1 as uuid }  from 'uuid'
 
 export default function Education({educationInfo, setInfo}){
@@ -8,19 +8,12 @@ export default function Education({educationInfo, setInfo}){
     const listRef = useRef(null)
     const dropdownRef = useRef(null)
     const bodyRef = useRef(null)
-
-    function toggleForm(){
-        const form = formRef.current
-        const list = listRef.current
-        if(form.classList.contains('hidden')){
-            form.classList.remove('hidden')
-            list.classList.add('hidden')
-        } else {
-            form.classList.add('hidden')
-            list.classList.remove('hidden')
-        }
-
-    }
+    const schoolRef = useRef(null)
+    const courseRef = useRef(null)
+    const startRef = useRef(null)
+    const endRef = useRef(null)
+    const locRef = useRef(null)
+    let editQueue = null;
 
     function dropDown(){
         const body = bodyRef.current
@@ -36,16 +29,97 @@ export default function Education({educationInfo, setInfo}){
 
     }
 
-    function Form({ preset, toggleForm}){
-        const schoolRef = useRef(null)
-        const courseRef = useRef(null)
-        const startRef = useRef(null)
-        const endRef = useRef(null)
-        const locRef = useRef(null)
+    function toggleForm(key = null){
+        const inputs = [
+            schoolRef.current,
+            courseRef.current,
+            startRef.current,
+            endRef.current
+        ]
+        inputs.map((input) => {
+            input.classList.remove('invalid')
+            
+        })
+        if(key && key!= 'cancel'){
+            editQueue = key
+            const info = educationInfo.filter((item) => item.id == key)
+            const preset = info[0]
 
-        function  handleItem(){
-            toggleForm()
+            schoolRef.current.value = preset.school
+            courseRef.current.value = preset.course
+            startRef.current.value = preset.start
+            endRef.current.value = preset.end
+            locRef.current.value = preset.location
+            
+        } else if(key == 'cancel'){
+            schoolRef.current.value = ''
+            courseRef.current.value = ''
+            startRef.current.value = ''
+            endRef.current.value = ''
+            locRef.current.value = ''
+            editQueue = null;
+        } else{
+            editQueue = null;
+        }
+        
+        const form = formRef.current
+        const list = listRef.current
+        if(form.classList.contains('hidden')){
+            form.classList.remove('hidden')
+            list.classList.add('hidden')
+        } else {
+            form.classList.add('hidden')
+            list.classList.remove('hidden')
+        }
+
+        
+    }
+
+    function  handleItem(){
+        const inputs = [
+            schoolRef.current,
+            courseRef.current,
+            startRef.current,
+            endRef.current
+        ]
+        let invalid = false;
+        inputs.map((input) => {
+            if(input.value == ''){
+                input.classList.add('invalid')
+                invalid = true;
+            } else{
+                input.classList.remove('invalid')
+            }
+        })
+
+        if(invalid) return;
+        
+
+        if(editQueue){
+            const copy = [...educationInfo]
+            let i = copy.map((item, index) => {
+                if(item.id==editQueue){
+                    return index
+                }
+            })
+            i = i.toString()
+
             const item = {
+                school: school.value,
+                course: course.value,
+                start: start.value,
+                end: end.value,
+                location: location.value,
+                id: editQueue
+            }
+            copy[i] = item
+            setInfo(copy)
+            editQueue = null
+            toggleForm()
+        } else{ 
+
+            toggleForm()
+            const newItem = {
                 school: schoolRef.current.value,
                 course: courseRef.current.value,
                 start: startRef.current.value,
@@ -53,24 +127,24 @@ export default function Education({educationInfo, setInfo}){
                 location: locRef.current.value,
                 id: uuid()
             }
-            const cpy = educationInfo
-            cpy.push(item)
+            const cpy = [...educationInfo]
+            cpy.push(newItem)
             
             setInfo(cpy)
-            
-        }    
-    
+        }
+    }
+
+    function Form(){
         return(
-            <div ref={formRef} className='hidden'>
+            <div ref={formRef} className='hidden form'>
                 <div className="inputGroup">
-                    <Input ref={schoolRef} type={'text'} dataKey={'school'} label={'School'} value={preset.school} ph={'School/university'}></Input>
-                    <Input ref={courseRef} type={'text'} dataKey={'title'} label={'Course/Degree'} value={preset.title} ph={'Enter course'}></Input>
-                    <Input ref={startRef} type={'text'} dataKey={'start'} label={'Start date'} value={preset.start} ph={''}></Input>
-                    <Input ref={endRef} type={'text'} dataKey={'end'} label={'Conclusion'} value={preset.end} ph={''}></Input>
-                    <Input ref={locRef} type={'text'} dataKey={'location'} label={'Location'} value={preset.location} ph={''}></Input>
+                    <Input ref={schoolRef} type={'text'} req={true} label={'School'} ph={'School/university'}></Input>
+                    <Input ref={courseRef} type={'text'} req={true} label={'Course/Degree'} ph={'Enter course'}></Input>
+                    <Input ref={startRef} type={'text'} req={true} label={'Start date'} ph={''}></Input>
+                    <Input ref={endRef} type={'text'} req={true} label={'Conclusion'} ph={''}></Input>
                 </div>
                 <div className="formBtns">
-                    <button className='formBtn' onClick={toggleForm} id='cancel'>Cancel</button>
+                    <button className='formBtn' onClick={() => toggleForm('cancel')} id='cancel'>Cancel</button>
                     <button className='formBtn' onClick={handleItem} id='save'>Save</button>
                 </div>
             </div>
@@ -82,9 +156,9 @@ export default function Education({educationInfo, setInfo}){
         return (
             <div >
                 {educationInfo.map((item) => (
-                    <div style={{display: 'flex'}}>
+                    <div key={item.id} onClick={() => toggleForm(item.id)} style={{display: 'flex'}}>
                         <div data-id={item.id} key={item.id}><strong>{item.course}</strong> <br></br> at {item.school}</div>
-                        <div></div>
+                       
                     </div>
 
                 ))}
@@ -100,11 +174,11 @@ export default function Education({educationInfo, setInfo}){
                     <button ref={dropdownRef} className="dropdown" onClick={dropDown}><i className="fa-solid fa-angle-up"></i></button>
                 </div>
                 <div ref={bodyRef} className="body">
-                <div ref={listRef}><List></List></div>
-                    <Form  toggleForm={toggleForm} preset={{}}></Form>
+                <div  ref={listRef}><List></List></div>
+                    <Form></Form>
                 </div>
                 <div className="footer">
-                    <button className="newEducation" onClick={toggleForm}><i className="fa-solid fa-circle-plus"></i> New</button>
+                    <button className="newEducation" onClick={() => toggleForm(null)}><i className="fa-solid fa-circle-plus"></i> New</button>
                 </div>
             </div>
         </>    
