@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import { v1 as uuid }  from 'uuid'
 
 export default function Education({educationInfo, setInfo}){
+    const footerRef = useRef(null)
     const formRef = useRef(null)
     const listRef = useRef(null)
     const dropdownRef = useRef(null)
@@ -17,13 +18,19 @@ export default function Education({educationInfo, setInfo}){
 
     function dropDown(){
         const body = bodyRef.current
+        const list = listRef.current
+        const footer = footerRef.current
         const btn = dropdownRef.current
         
         if(body.classList.contains('hidden')){
+            footer.classList.remove('hidden')
+            list.classList.remove('hidden')
             body.classList.remove('hidden')
             btn.style.transform = 'rotate(0turn)'
         } else {
             body.classList.add('hidden')
+            list.classList.add('hidden')
+            footer.classList.add('hidden')
             btn.style.transform = 'rotate(0.5turn)'
         }
 
@@ -171,13 +178,13 @@ export default function Education({educationInfo, setInfo}){
             <div className="container">
                 <div className="head" style={{display: 'flex', justifyContent: 'space-between', padding: '10px'}}>
                     <h1><i className="fa-solid fa-graduation-cap"></i> Education</h1>
-                    <button ref={dropdownRef} className="dropdown" onClick={dropDown}><i className="fa-solid fa-angle-up"></i></button>
+                    <button ref={dropdownRef} className="dropdown" onClick={dropDown}><i className="fa-solid fa-angle-down"></i></button>
                 </div>
                 <div ref={bodyRef} className="body">
                 <div  ref={listRef}><List></List></div>
                     <Form></Form>
                 </div>
-                <div className="footer">
+                <div ref={footerRef} className="footer">
                     <button className="newEducation" onClick={() => toggleForm(null)}><i className="fa-solid fa-circle-plus"></i> New</button>
                 </div>
             </div>
