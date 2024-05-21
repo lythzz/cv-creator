@@ -1,4 +1,29 @@
 .body{
     display: flex;
-    gap: 0;
+    justify-content: space-evenly;
+}
+.btnContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.printBtn{
+    background-color: rgb(64, 193, 102);
+    padding: 10px 25px;
+    margin: 2%;
+    border-radius: 5px;
+    border: none;
+    font-weight: bolder;
+    transition: transform .2s;
+}
+.printBtn:hover{
+    background-color: rgb(27, 136, 42);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+@media print{
+    .no-print{
+        display: none;
+    }
 }

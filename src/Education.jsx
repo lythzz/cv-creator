@@ -19,6 +19,7 @@ export default function Education({educationInfo, setInfo}){
     function dropDown(){
         const body = bodyRef.current
         const list = listRef.current
+        const form = formRef.current
         const footer = footerRef.current
         const btn = dropdownRef.current
         
@@ -26,14 +27,21 @@ export default function Education({educationInfo, setInfo}){
             footer.classList.remove('hidden')
             list.classList.remove('hidden')
             body.classList.remove('hidden')
+            form.classList.contains('hidden') ? null : form.classList.remove('hidden')
             btn.style.transform = 'rotate(0turn)'
         } else {
             body.classList.add('hidden')
             list.classList.add('hidden')
             footer.classList.add('hidden')
+            form.classList.add('hidden')
             btn.style.transform = 'rotate(0.5turn)'
         }
 
+    }
+
+    function deleteItem(id){
+        const copy = educationInfo.filter((item) => item.id != id)
+        setInfo(copy)
     }
 
     function toggleForm(key = null){
@@ -67,16 +75,19 @@ export default function Education({educationInfo, setInfo}){
             editQueue = null;
         } else{
             editQueue = null;
-        }
+        }   
         
         const form = formRef.current
         const list = listRef.current
+        const footer = footerRef.current
         if(form.classList.contains('hidden')){
             form.classList.remove('hidden')
             list.classList.add('hidden')
+            footer.classList.add('hidden')
         } else {
             form.classList.add('hidden')
             list.classList.remove('hidden')
+            footer.classList.remove('hidden')
         }
 
         
@@ -149,6 +160,7 @@ export default function Education({educationInfo, setInfo}){
                     <Input ref={courseRef} type={'text'} req={true} label={'Course/Degree'} ph={'Enter course'}></Input>
                     <Input ref={startRef} type={'text'} req={true} label={'Start date'} ph={''}></Input>
                     <Input ref={endRef} type={'text'} req={true} label={'Conclusion'} ph={''}></Input>
+                    <Input ref={locRef} type={'text'} req={false} label={'Location'} ph={''} id={'locationInput'}></Input>
                 </div>
                 <div className="formBtns">
                     <button className='formBtn' onClick={() => toggleForm('cancel')} id='cancel'>Cancel</button>
@@ -161,11 +173,11 @@ export default function Education({educationInfo, setInfo}){
 
     function List(){
         return (
-            <div >
+            <div style={{width: '100%'}}>
                 {educationInfo.map((item) => (
-                    <div key={item.id} onClick={() => toggleForm(item.id)} style={{display: 'flex'}}>
-                        <div data-id={item.id} key={item.id}><strong>{item.course}</strong> <br></br> at {item.school}</div>
-                       
+                    <div key={item.id} className='education item' onClick={() => toggleForm(item.id)} style={{display: 'flex'}}>
+                        <h2>{item.school}</h2>
+                        <h2 className='deleteItem' onClick={() => deleteItem(item.id)}><i className="deleteItem fa-solid fa-trash"></i></h2>
                     </div>
 
                 ))}
@@ -181,8 +193,8 @@ export default function Education({educationInfo, setInfo}){
                     <button ref={dropdownRef} className="dropdown" onClick={dropDown}><i className="fa-solid fa-angle-down"></i></button>
                 </div>
                 <div ref={bodyRef} className="body">
-                <div  ref={listRef}><List></List></div>
-                    <Form></Form>
+                <div style={{width: '100%'}} ref={listRef}><List></List></div>
+                <Form></Form>
                 </div>
                 <div ref={footerRef} className="footer">
                     <button className="newEducation" onClick={() => toggleForm(null)}><i className="fa-solid fa-circle-plus"></i> New</button>

@@ -1,0 +1,94 @@
+.container{
+    width: max(40vw, 400px);
+    margin: 4% 0;
+    background-color: white;
+    border-radius: 10px;
+}
+.dropdown{
+    border: none;
+    background-color: white;
+    font-size: 25px;
+    transition: transform .2s;
+}
+
+.hidden{
+    display: none;
+}
+
+.inputGroup{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.form{
+    width: 100%;
+}
+
+#cancel, #save{
+    padding: 10px 20px;
+    margin: 0 2.5% 2% 0;
+    border-radius: 5px;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+    transition: transform .2s;
+}
+
+#cancel{
+    background-color: rgb(228, 64, 64);
+}
+
+#save{
+    background-color: rgb(111, 196, 103);
+}
+
+#cancel:hover{
+    background-color:  rgb(196, 0, 0);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+#save:hover{
+    background-color: rgb(13, 160, 0);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.formBtns{
+    width: 100%;
+    text-align: right;
+}
+.item{
+    background-color: white;
+    width: 85%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.item:hover{
+    background-color: rgb(222, 222, 222);
+    cursor: pointer;
+}
+.footer{
+    width: 100%;
+    text-align: center;
+}
+.newExp{
+    background-color: rgb(198, 198, 198);
+    padding: 10px 25px;
+    margin: 2%;
+    border-radius: 5px;
+    border: none;
+    font-weight: bolder;
+    transition: transform .2s;
+}
+.newExp:hover{
+    background-color: rgb(173, 173, 173);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.deleteItem:hover{
+    transform: scale(1.05);
+}

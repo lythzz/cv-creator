@@ -1,7 +1,8 @@
 .previewContainer{
-    width: 55vw;
-    margin: 2% 4%;
-    height: 77.78vw;
+    --width: max(45vw, 700px);
+    width: var(--width);
+    margin: 2% 0;
+    height: calc(var(--width) *1.41);
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -11,8 +12,8 @@
 
 }
 header{
-    background-color: rgb(30, 59, 117);
-    height: 12%;
+    background-color: rgb(15, 67, 113);
+    height: 15%;
     color: white;
     text-align: center;
     padding: 10px;
@@ -29,4 +30,54 @@ header{
 }
 .contactInfo > h3{
     font-weight: lighter;
+}
+.title{
+    background-color: rgb(190, 190, 190);
+    margin: 2% 5%;
+    padding: 8px;
+    text-align: center;
+    font: bold 1.2rem Roboto;
+    color: rgb(15, 67, 113);
+}
+.previewItem{
+    width: 85%;
+    margin: 1% auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+.previewItem > div{
+    text-align: right;
+}
+h3 > span{
+    font-size: 1rem;
+}
+.previewExp{
+    width: 85%;
+    margin: 1% auto;
+    display: flex;
+    justify-content: center;
+    
+    flex-direction: column;
+}
+.head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.desc{
+    font: 1rem thin Roboto;
+    margin: 0 5%;
+    width: 90%;
+    overflow-wrap: break-word;
+}
+
+@media print{
+    .previewContainer{
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+    }
 }

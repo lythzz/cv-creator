@@ -15,6 +15,25 @@ const exampledata = {
                 location: 'Brazil',
                 id: 1337
             }
+        ],
+    expInfo:
+        [
+            {
+                company: 'Google',
+                job: 'Software Engineer',
+                start: 'May 2021',
+                end: 'Present',
+                desc: 'Do things',
+                id: '1337'
+            },
+            {
+                company: 'Droga Raia',
+                job: 'Test subject',
+                start: 'Jan 2020',
+                end: 'Feb 2021',
+                desc: 'I was a test subject in the development of vaccines against pedroplasmosis as patient 0',
+                id: '0909'
+            }
         ]
 }
 
